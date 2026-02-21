@@ -55,25 +55,17 @@ def parseGoogleDoc( content: str):
     return GridData(maxY, data)
 
 def printCode(data):
-    if not data or data.maxY == -1 :
+    if not data or data.grid[0] == -1 :
         print("Error: No data")
         return
-    
-    
-    
-    y = data.maxY
 
-    while y >= 0:
-        x = 0
-        line=""
-        while x < len(data.grid):
-            if y>=len(data.grid[x]):
-                line+=" "
-            else:
-                line+=data.grid[x][y]
-            x+=1
+    for y in range(data.maxY, -1, -1):
+        line = "".join(
+            data.grid[x][y] if y < len(data.grid[x]) else " "
+            for x in range(len(data.grid))
+        )
         print(line)
-        y-=1
+
 
         
 def solve(url: str):
